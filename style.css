@@ -1,18 +1,20 @@
-/* PROFESYONEL BEYAZ TEMA STİLLERİ */
+/* PROFESYONEL AÇIK MAVİ TEMA STİLLERİ */
 :root {
-    --bg-light: #FFFFFF; /* BEYAZ ARKA PLAN */
-    --primary-color: #000000; /* Koyu Metinler */
-    --accent-color: #1a1a1a; /* Buton Rengi */
-    --shadow-light: rgba(0, 0, 0, 0.1);
+    --bg-light: #F0F8FF; /* Açık Mavi (Alice Blue) */
+    --primary-color: #000000; 
+    --accent-color: #4682B4; /* Çelik Mavi (Profesyonel) */
+    --hover-color: #5F9EA0; /* Turkuaz Mavi */
+    --shadow-light: rgba(0, 0, 0, 0.15);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
-
-/* GENEL ARKA PLAN */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
+html, body {
+    width: 100vw; height: 100vh;
+}
 body {
     background-color: var(--bg-light); 
     color: var(--primary-color);
-    overflow: hidden; /* Dikey kaydırmayı engelle */
+    overflow: hidden; 
 }
 
 /* Sayfa Geçişleri (Vertikal) */
@@ -26,66 +28,64 @@ body {
 
 /* BAŞLIK STİLİ */
 #page1 h1 {
-    font-weight: 700; font-size: 3rem;
-    color: var(--primary-color);
+    font-weight: 900; font-size: 3rem;
+    color: var(--accent-color);
     margin-bottom: 70px;
-    text-shadow: 1px 1px 2px var(--shadow-light);
 }
 
-.buttons-container { position: relative; width: 320px; height: 180px; }
+/* BUTONLAR VE CONTAINER */
+.buttons-container { 
+    position: relative; 
+    width: 400px; /* Kaçış alanı için biraz genişlettik */
+    height: 300px; 
+    display: flex; /* Düğmeleri kontrol etmek için */
+    justify-content: center;
+    align-items: center;
+}
 
 /* PROFESYONEL BUTON STİLİ */
-.professional-btn {
-    padding: 15px 40px; font-size: 1.2rem; font-weight: 600;
+.pro-btn {
+    padding: 15px 40px; font-size: 1.2rem; font-weight: 700;
     border: 2px solid var(--accent-color);
-    background-color: var(--primary-color);
+    background-color: var(--accent-color);
     color: var(--bg-light);
     cursor: pointer;
     transition: all 0.3s ease;
-    border-radius: 4px; /* Keskin köşeler */
-    position: absolute; left: 50%; transform: translateX(-50%);
+    border-radius: 8px;
+    position: absolute; /* Butonların konumunu JS ile değiştirebilmek için */
     box-shadow: 0 4px 10px var(--shadow-light);
     min-width: 180px; min-height: 55px;
 }
 
-.professional-btn:hover {
-    background-color: var(--bg-light);
-    color: var(--primary-color);
-    transform: translateX(-50%) scale(1.05);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+.pro-btn:hover {
+    background-color: var(--hover-color);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
 }
 
-.yes-btn { top: 0; }
+.yes-btn { 
+    top: 50%; left: 50%; transform: translate(-50%, -50%); 
+    z-index: 10;
+}
 
-/* HAYIR BUTONUNU DEVRE DIŞI BIRAKMA VE ALTTA TUTMA */
 .no-btn { 
-    bottom: 0; 
-    z-index: 4; 
-    opacity: 0.3; /* Silik görünüm */
-    pointer-events: none; /* ASLA TIKLANAMAZ! */
-    cursor: default; /* Mouse imleci değişmez */
+    top: 50%; left: 50%; transform: translate(-50%, -50%); 
+    z-index: 5;
+    background-color: var(--bg-light);
+    color: var(--accent-color);
+}
+.no-btn:hover {
+    background-color: var(--bg-light); 
+    transform: translate(-50%, -50%) scale(1.05);
 }
 
-.error-message {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    color: #DC3545; 
-    font-size: 1.5rem; font-weight: 700; opacity: 0;
-    pointer-events: none; z-index: 6;
-}
-/* Hata efekti sadeleştirildi */
-@keyframes fade-in-out {
-    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
-    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
-    100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
-}
 
 /* İKİNCİ SAYFA STİLLERİ */
 #page2 h2 {
     font-weight: 700; font-size: 2.2rem;
     color: var(--accent-color);
-    margin-bottom: 10px; position: relative;
+    margin-bottom: 10px; 
 }
-.secondary-text { color: var(--accent-color); margin-bottom: 40px; font-weight: 400; font-size: 1rem; text-align: center; max-width: 80%; }
+.secondary-text { color: var(--primary-color); margin-bottom: 40px; font-weight: 400; font-size: 1rem; text-align: center; max-width: 80%; }
 
 .reward-section { display: flex; gap: 40px; flex-wrap: wrap; justify-content: center; margin-top: 30px; }
 .reward-item img {
@@ -101,7 +101,6 @@ body {
     margin-top: 60px;
 }
 .final-btn:hover {
-    background-color: var(--bg-light);
-    color: var(--accent-color);
-    border: 2px solid var(--accent-color);
+    background-color: var(--hover-color);
+    color: white;
 }
