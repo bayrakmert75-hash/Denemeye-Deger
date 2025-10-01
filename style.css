@@ -1,127 +1,107 @@
-/* Lütfen tüm içeriği bununla değiştirin. */
+/* PROFESYONEL BEYAZ TEMA STİLLERİ */
 :root {
-    --bg-dark: #121212; 
-    --text-light: #F0F0F0;
-    --tiktok-red: #FE2C55;
-    --tiktok-blue: #25F4EE;
-    --tiktok-gray: #444444;
+    --bg-light: #FFFFFF; /* BEYAZ ARKA PLAN */
+    --primary-color: #000000; /* Koyu Metinler */
+    --accent-color: #1a1a1a; /* Buton Rengi */
+    --shadow-light: rgba(0, 0, 0, 0.1);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-html, body {
-    width: 100%; height: 100%; overflow: hidden;
-    background-color: var(--bg-dark);
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+
+/* GENEL ARKA PLAN */
+body {
+    background-color: var(--bg-light); 
+    color: var(--primary-color);
+    overflow: hidden; /* Dikey kaydırmayı engelle */
 }
 
-.container {
-    display: flex; 
-    width: 300vw; 
-    height: 100%;
-    transition: transform 0.6s ease-in-out; 
-}
-
+/* Sayfa Geçişleri (Vertikal) */
 .page {
-    flex: 0 0 100vw; 
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    background-color: var(--bg-dark); 
-    color: var(--text-light);
-    text-align: center;
-    padding: 20px;
+    width: 100vw; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden; transition: opacity 0.6s ease-in-out;
+    position: absolute; top: 0; left: 0;
+    background-color: transparent; 
+}
+.page.active { opacity: 1; visibility: visible; }
+
+/* BAŞLIK STİLİ */
+#page1 h1 {
+    font-weight: 700; font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 70px;
+    text-shadow: 1px 1px 2px var(--shadow-light);
 }
 
-.page h1, .page h2 {
-    font-weight: 700;
-    font-size: 3rem; 
-    margin-bottom: 40px;
-    color: var(--text-light);
-    text-shadow: 0 0 5px rgba(0,0,0,0.5);
-}
+.buttons-container { position: relative; width: 320px; height: 180px; }
 
-.page h2 {
-    font-size: 2.5rem;
-    color: var(--tiktok-blue); 
-    text-shadow: 0 0 10px rgba(37, 244, 238, 0.5);
-}
-
-.secondary-text {
-    font-size: 1.1rem;
-    color: var(--text-light);
-    margin-bottom: 30px;
-    max-width: 80%;
-}
-
-.tiktok-btn {
-    padding: 15px 45px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    border: none;
-    border-radius: 8px; 
+/* PROFESYONEL BUTON STİLİ */
+.professional-btn {
+    padding: 15px 40px; font-size: 1.2rem; font-weight: 600;
+    border: 2px solid var(--accent-color);
+    background-color: var(--primary-color);
+    color: var(--bg-light);
     cursor: pointer;
     transition: all 0.3s ease;
-    min-width: 180px;
-    background-color: var(--tiktok-red); 
-    color: white;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    border-radius: 4px; /* Keskin köşeler */
+    position: absolute; left: 50%; transform: translateX(-50%);
+    box-shadow: 0 4px 10px var(--shadow-light);
+    min-width: 180px; min-height: 55px;
 }
 
-.tiktok-btn:hover {
-    background-color: #FF4A6F; 
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+.professional-btn:hover {
+    background-color: var(--bg-light);
+    color: var(--primary-color);
+    transform: translateX(-50%) scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
-.buttons-container {
-    position: relative;
-    width: 320px;
-    height: 180px;
+.yes-btn { top: 0; }
+
+/* HAYIR BUTONUNU DEVRE DIŞI BIRAKMA VE ALTTA TUTMA */
+.no-btn { 
+    bottom: 0; 
+    z-index: 4; 
+    opacity: 0.3; /* Silik görünüm */
+    pointer-events: none; /* ASLA TIKLANAMAZ! */
+    cursor: default; /* Mouse imleci değişmez */
 }
-.yes-btn { position: absolute; top: 0; left: 50%; transform: translateX(-50%); }
-.no-btn { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); }
 
 .error-message {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    color: var(--tiktok-blue); 
-    font-size: 1.4rem; font-weight: 700; opacity: 0;
+    color: #DC3545; 
+    font-size: 1.5rem; font-weight: 700; opacity: 0;
     pointer-events: none; z-index: 6;
 }
-@keyframes glitch-fade { 
-    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8) skewX(0deg); }
-    25% { opacity: 1; transform: translate(-50%, -50%) scale(1.1) skewX(5deg); text-shadow: 2px 2px 0 var(--tiktok-blue); }
-    50% { opacity: 1; transform: translate(-50%, -50%) scale(1) skewX(-5deg); text-shadow: -2px -2px 0 var(--tiktok-red); }
-    75% { opacity: 1; transform: translate(-50%, -50%) scale(1.05) skewX(3deg); text-shadow: 2px 2px 0 var(--tiktok-blue); }
-    100% { opacity: 0; transform: translate(-50%, -50%) scale(1) skewX(0deg); }
+/* Hata efekti sadeleştirildi */
+@keyframes fade-in-out {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
 }
 
-.reward-section {
-    display: flex; gap: 40px; flex-wrap: wrap; justify-content: center; margin-top: 30px;
+/* İKİNCİ SAYFA STİLLERİ */
+#page2 h2 {
+    font-weight: 700; font-size: 2.2rem;
+    color: var(--accent-color);
+    margin-bottom: 10px; position: relative;
 }
+.secondary-text { color: var(--accent-color); margin-bottom: 40px; font-weight: 400; font-size: 1rem; text-align: center; max-width: 80%; }
+
+.reward-section { display: flex; gap: 40px; flex-wrap: wrap; justify-content: center; margin-top: 30px; }
 .reward-item img {
-    width: 280px; height: 380px; object-fit: cover; border-radius: 12px;
-    border: 3px solid var(--tiktok-blue); 
-    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    width: 250px; height: 350px; object-fit: cover; border-radius: 6px;
+    border: 3px solid var(--accent-color); 
+    box-shadow: 0 5px 15px var(--shadow-light);
 }
 
-.final-btn, .contact-btn {
+.final-btn {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
     margin-top: 60px;
-    background-color: var(--tiktok-red); 
 }
-
-.contact-btn {
-    background-color: var(--tiktok-blue); 
-    color: var(--bg-dark); 
-    text-decoration: none; 
-    display: inline-flex; 
-    align-items: center;
-    justify-content: center;
-}
-.contact-btn:hover {
-    background-color: #4AFEF9; 
-    color: var(--bg-dark);
-}
-
-@media (max-width: 768px) {
-    .page h1, .page h2 { font-size: 2.2rem; }
-    .page h2 { font-size: 1.8rem; }
-    .tiktok-btn { padding: 12px 30px; font-size: 1rem; min-width: 150px; }
-    .reward-item img { width: 200px; height: 300px; }
+.final-btn:hover {
+    background-color: var(--bg-light);
+    color: var(--accent-color);
+    border: 2px solid var(--accent-color);
 }
