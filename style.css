@@ -1,0 +1,53 @@
+/* INSTA-GLOW CSS STİLLERİ */
+:root {
+    --bg-dark: #1A1A1A; --neon-magenta: #E033FF; --electric-blue: #00FFFF; --white-glow: #FFFFFF; --error-red: #FF0000;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
+.page {
+    width: 100vw; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.6s ease-in-out, background 0.6s ease; background-color: var(--bg-dark); position: absolute; top: 0; left: 0;
+}
+.page.active { opacity: 1; visibility: visible; }
+#page1 h1 {
+    font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 3.5rem; letter-spacing: 5px; color: var(--neon-magenta); text-shadow: 0 0 10px var(--neon-magenta), 0 0 20px var(--neon-magenta), 0 0 30px var(--neon-magenta); animation: pulse-glow 1.5s infinite alternate; margin-bottom: 70px;
+}
+@keyframes pulse-glow { from { text-shadow: 0 0 10px var(--neon-magenta), 0 0 20px var(--neon-magenta); } to { text-shadow: 0 0 15px var(--neon-magenta), 0 0 25px var(--neon-magenta), 0 0 35px var(--neon-magenta); } }
+.buttons-container { position: relative; width: 320px; height: 180px; }
+.luxury-btn {
+    padding: 18px 45px; font-size: 1.3rem; font-weight: 700; border: 3px solid var(--neon-magenta); background-color: var(--bg-dark); color: var(--white-glow); cursor: pointer; transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); border-radius: 8px; position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap; min-width: 180px; min-height: 60px; text-transform: uppercase; box-shadow: 0 0 10px rgba(224, 51, 255, 0.5); z-index: 5;
+}
+.yes-btn { top: 0; }
+.no-btn { bottom: 0; z-index: 4; }
+.error-message {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: var(--error-red); font-size: 1.5rem; font-weight: 700; opacity: 0; pointer-events: none; z-index: 6;
+}
+@keyframes glitch-fade {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8) skewX(0deg); text-shadow: none; } 25% { opacity: 1; transform: translate(-50%, -50%) scale(1.1) skewX(5deg); text-shadow: 2px 2px 0 var(--electric-blue); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1) skewX(-5deg); text-shadow: -2px -2px 0 var(--neon-magenta); } 75% { opacity: 1; transform: translate(-50%, -50%) scale(1.05) skewX(3deg); text-shadow: 2px 2px 0 var(--electric-blue); } 100% { opacity: 0; transform: translate(-50%, -50%) scale(1) skewX(0deg); text-shadow: none; }
+}
+#page2 { background: linear-gradient(135deg, var(--bg-dark) 0%, #330033 70%, #000033 100%); overflow: hidden; }
+#page2 h2 {
+    font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 2.8rem; letter-spacing: 3px; color: var(--white-glow); text-shadow: 0 0 8px var(--electric-blue); margin-bottom: 10px; position: relative;
+}
+#page2 h2::after {
+    content: ''; position: absolute; left: 0; bottom: -10px; width: 100%; height: 3px; background: var(--electric-blue); box-shadow: 0 0 10px var(--electric-blue); transform: scaleX(0); transform-origin: left; animation: draw-line 0.8s ease-out 0.5s forwards;
+}
+@keyframes draw-line { to { transform: scaleX(1); } }
+.secondary-text { color: var(--light-silver); margin-bottom: 40px; font-weight: 400; font-size: 1.1rem; text-align: center; max-width: 80%; }
+.reward-section { display: flex; gap: 60px; flex-wrap: wrap; justify-content: center; margin-top: 30px; }
+.reward-item { position: relative; overflow: hidden; border-radius: 8px; box-shadow: 0 0 25px rgba(0, 0, 0, 0.5); transition: transform 0.3s ease; }
+.reward-item:hover { transform: scale(1.05); }
+.reward-item img {
+    width: 280px; height: 380px; object-fit: cover; border-radius: 8px; border: 2px solid var(--electric-blue); box-shadow: 0 0 15px var(--electric-blue), inset 0 0 5px var(--electric-blue);
+}
+.flower img {
+     mask-image: radial-gradient(circle at center, black 60%, transparent 80%); -webkit-mask-image: radial-gradient(circle at center, black 60%, transparent 80%);
+}
+.chocolate::after {
+    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transform: skewX(-30deg); animation: shine 1.8s infinite;
+}
+@keyframes shine { to { left: 100%; } }
+.final-btn {
+    background-color: var(--neon-magenta); color: var(--bg-dark); border-color: var(--neon-magenta); margin-top: 60px; box-shadow: 0 0 20px var(--neon-magenta);
+}
+.final-btn:hover {
+    background-color: var(--bg-dark); color: var(--neon-magenta); box-shadow: 0 0 30px var(--neon-magenta), 0 0 50px var(--neon-magenta);
+}
