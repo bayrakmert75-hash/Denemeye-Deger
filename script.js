@@ -1,3 +1,4 @@
+// HTML elemanlarını doğru ID'leriyle tanımlıyoruz
 const yesBtn = document.getElementById('yesBtn');
 const noBtn = document.getElementById('noBtn');
 const errorMessage = document.getElementById('errorMessage');
@@ -8,6 +9,7 @@ const finalBtn = document.getElementById('finalBtn');
 let noClickCount = 0;
 const maxNoClicks = 3; 
 
+// HAYIR Butonu Dinamiği
 noBtn.addEventListener('click', () => {
     noClickCount++;
     errorMessage.style.animation = 'none';
@@ -32,12 +34,13 @@ noBtn.addEventListener('click', () => {
     }
 });
 
+// EVET Butonu Dinamiği (Sayfa Geçişi)
 yesBtn.addEventListener('click', () => {
     page1.classList.remove('active');
     page2.classList.add('active');
 });
 
-// FINAL BUTON: INSTAGRAM UYARI KUTUSU
+// FINAL BUTON: INSTAGRAM Yönlendirmesi
 finalBtn.addEventListener('click', () => {
     const instagramURL = 'https://www.instagram.com/_m7rteren_'; // Senin Instagram hesabın
     
