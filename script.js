@@ -3,7 +3,9 @@ const noBtn = document.getElementById('noBtn');
 const errorMessage = document.getElementById('errorMessage');
 const page1 = document.getElementById('page1');
 const page2 = document.getElementById('page2');
+const page3 = document.getElementById('page3'); // Yeni 3. sayfa
 const finalBtn = document.getElementById('finalBtn'); 
+const container = document.querySelector('.container'); // Sayfaları saran container
 
 let noClickCount = 0;
 const maxNoClicks = 3; 
@@ -22,24 +24,22 @@ noBtn.addEventListener('click', () => {
     
     const yesScaleFactor = 1 + (noClickCount * 0.6);
     yesBtn.style.transform = `translateX(-50%) scale(${yesScaleFactor})`;
-    yesBtn.style.color = 'var(--bg-dark)';
-    yesBtn.style.backgroundColor = 'var(--neon-magenta)';
-    yesBtn.style.boxShadow = `0 0 ${noClickCount * 10}px var(--neon-magenta)`;
+    yesBtn.style.backgroundColor = 'var(--tiktok-red)'; // TikTok temasına uygun renk
+    yesBtn.style.color = 'white';
+    yesBtn.style.boxShadow = `0 0 ${noClickCount * 10}px rgba(254, 44, 85, 0.7)`; // Kırmızı gölge
     
     if (noClickCount >= maxNoClicks) {
-        noBtn.style.opacity = '0';
-        noBtn.style.pointerEvents = 'none';
-        yesBtn.innerHTML = 'HİÇBİR KAÇIŞIN YOK! BAŞLA';
+        // 3. kez HAYIR denince direkt 3. sayfaya kaydır
+        container.style.transform = 'translateX(-200vw)'; // 3. sayfaya kaydır
     }
 });
 
-// EVET Butonu Dinamiği (Sayfa Geçişi)
+// EVET Butonu Dinamiği (Sayfa 1'den Sayfa 2'ye Kaydırma)
 yesBtn.addEventListener('click', () => {
-    page1.classList.remove('active');
-    page2.classList.add('active');
+    container.style.transform = 'translateX(-100vw)'; // 2. sayfaya kaydır
 });
 
-// FINAL BUTON: INSTAGRAM Yönlendirmesi (Metin Temizlendi)
+// FINAL BUTON: INSTAGRAM Yönlendirmesi
 finalBtn.addEventListener('click', () => {
     const instagramURL = 'https://www.instagram.com/_m7rteren_'; // Senin Instagram hesabın
     
