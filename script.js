@@ -1,4 +1,3 @@
-// Lütfen bu kodun tamamını kopyalayın
 const yesBtn = document.getElementById('yesBtn');
 const noBtn = document.getElementById('noBtn');
 const errorMessage = document.getElementById('errorMessage');
@@ -40,7 +39,7 @@ yesBtn.addEventListener('click', () => {
     page2.classList.add('active');
 });
 
-// FINAL BUTON: INSTAGRAM Yönlendirmesi
+// FINAL BUTON: INSTAGRAM Yönlendirmesi (Metin Temizlendi)
 finalBtn.addEventListener('click', () => {
     const instagramURL = 'https://www.instagram.com/_m7rteren_'; // Senin Instagram hesabın
     
