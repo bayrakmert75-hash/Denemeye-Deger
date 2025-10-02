@@ -1,17 +1,20 @@
-/* INSTA NEON TEMEL YAPISI + YENİ GÖRÜNÜM */
+/* ORİJİNAL KOYU NEON TEMASI */
 :root {
-    --bg-light: #F0F8FF; /* İstenen Açık Mavi Arka Plan */
-    --primary-color: #000000; 
-    --accent-color: #4682B4; /* Çelik Mavi (Ana Vurgu Rengi) */
-    --hover-color: #5F9EA0; 
-    --shadow-light: rgba(0, 0, 0, 0.15);
+    --bg-dark: #1e1e1e; /* Koyu Arka Plan */
+    --text-light: #F0F0F0;
+    --neon-pink: #FF6AC1; /* Ana Neon Vurgu */
+    --neon-blue: #00FFFF;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
 html, body { width: 100vw; height: 100vh; }
-body { background-color: var(--bg-light); color: var(--primary-color); overflow: hidden; }
+body {
+    background-color: var(--bg-dark); 
+    color: var(--text-light);
+    overflow: hidden; 
+}
 
-/* Vertikal Geçiş Stili */
+/* Vertikal Sayfa Geçişleri (En Stabil Yapı) */
 .page {
     width: 100vw; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
     opacity: 0; visibility: hidden; transition: opacity 0.6s ease-in-out;
@@ -20,46 +23,81 @@ body { background-color: var(--bg-light); color: var(--primary-color); overflow:
 }
 .page.active { opacity: 1; visibility: visible; }
 
-/* BAŞLIK STİLİ */
-#page1 h1 { font-weight: 900; font-size: 3rem; color: var(--accent-color); margin-bottom: 70px; }
+/* BAŞLIK VE METİN STİLLERİ */
+#page1 h1 {
+    font-weight: 900; font-size: 3rem;
+    color: var(--text-light);
+    margin-bottom: 70px;
+    text-shadow: 0 0 5px var(--neon-pink); /* Neon Etkisi */
+}
 
 /* BUTONLAR VE CONTAINER */
 .buttons-container { position: relative; width: 320px; height: 180px; }
 
-/* PROFESYONEL BUTON STİLİ */
-.pro-btn {
+.neon-btn {
     padding: 15px 40px; font-size: 1.2rem; font-weight: 700;
-    border: 2px solid var(--accent-color);
-    background-color: var(--accent-color);
-    color: var(--bg-light);
+    border: 2px solid var(--neon-pink);
+    background-color: transparent;
+    color: var(--text-light);
     cursor: pointer;
     transition: all 0.3s ease;
-    border-radius: 8px;
-    
-    /* GÜVENİLİR KONUMLANDIRMA */
+    border-radius: 4px;
     position: absolute; 
     left: 50%; 
-    transform: translateX(-50%); /* EVET butonu için JS bunu değiştirecek */
+    transform: translateX(-50%); 
     
-    box-shadow: 0 4px 10px var(--shadow-light);
+    box-shadow: 0 0 10px var(--neon-pink); /* Neon Kutusu Gölgesi */
     min-width: 180px; min-height: 55px;
 }
-.pro-btn:hover { background-color: var(--hover-color); box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); }
 
-/* EVET ve HAYIR Konumları */
-.yes-btn { top: 0; z-index: 10; } /* EVET butonu önde olmalı */
-.no-btn { bottom: 0; background-color: var(--bg-light); color: var(--accent-color); z-index: 5;} /* HAYIR butonu altta ve açık renkli */
-.no-btn:hover { background-color: var(--bg-light); color: var(--accent-color); transform: translateX(-50%) scale(1.05); }
+.neon-btn:hover {
+    background-color: var(--neon-pink);
+    color: var(--bg-dark);
+    box-shadow: 0 0 20px var(--neon-pink);
+    transform: translateX(-50%) scale(1.05);
+}
 
+.yes-btn { top: 0; }
+.no-btn { bottom: 0; border-color: var(--neon-blue); box-shadow: 0 0 10px var(--neon-blue); }
+.no-btn:hover { background-color: var(--neon-blue); color: var(--bg-dark); box-shadow: 0 0 20px var(--neon-blue); }
+
+.error-message {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    color: var(--neon-pink); 
+    font-size: 1.5rem; font-weight: 700; opacity: 0;
+    pointer-events: none; z-index: 6;
+}
+@keyframes fade-in-out {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
 
 /* İKİNCİ SAYFA STİLLERİ */
-#page2 h2 { font-weight: 700; font-size: 2.2rem; color: var(--accent-color); margin-bottom: 10px; }
-.secondary-text { color: var(--primary-color); margin-bottom: 40px; font-weight: 400; font-size: 1rem; text-align: center; max-width: 80%; }
+#page2 h2 {
+    font-weight: 700; font-size: 2.2rem;
+    color: var(--neon-blue);
+    margin-bottom: 10px; 
+    text-shadow: 0 0 8px var(--neon-blue);
+}
+.secondary-text { color: var(--text-light); margin-bottom: 40px; font-weight: 400; font-size: 1rem; text-align: center; max-width: 80%; }
+
 .reward-section { display: flex; gap: 40px; flex-wrap: wrap; justify-content: center; margin-top: 30px; }
 .reward-item img {
     width: 250px; height: 350px; object-fit: cover; border-radius: 6px;
-    border: 3px solid var(--accent-color); 
-    box-shadow: 0 5px 15px var(--shadow-light);
+    border: 3px solid var(--neon-pink); 
+    box-shadow: 0 0 15px rgba(255, 106, 193, 0.5);
 }
-.final-btn { background-color: var(--accent-color); color: white; border: none; margin-top: 60px; }
-.final-btn:hover { background-color: var(--hover-color); color: white; }
+
+.final-btn {
+    background-color: var(--neon-pink);
+    color: var(--bg-dark);
+    border: none;
+    margin-top: 60px;
+    box-shadow: 0 0 15px var(--neon-pink);
+}
+.final-btn:hover {
+    background-color: var(--neon-blue);
+    color: var(--bg-dark);
+    box-shadow: 0 0 20px var(--neon-blue);
+}
