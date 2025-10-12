@@ -1,92 +1,161 @@
+/* Genel Ayarlar ve Font */
+:root {
+    --primary-color: #e91e63; /* Canlı Pembe */
+    --secondary-color: #4a148c; /* Koyu Mor */
+    --bg-color: #f8f0fb; /* Çok Açık Mor */
+}
+
 body {
-    background-color: #fce4ec; /* Açık pembe arka plan */
-    font-family: 'Georgia', serif; /* Özel bir font seçin */
+    font-family: 'Cormorant Garamond', serif;
+    background-color: var(--bg-color);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    text-align: center;
-    color: #4a148c; /* Morumsu koyu yazı rengi */
+    color: var(--secondary-color);
+    overflow: hidden; /* Kararsız buton için gerekebilir */
 }
 
+/* Arka Plan Efekti */
+.background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #ffcce0, #e6b3ff); /* Yumuşak degrade */
+    opacity: 0.7;
+    z-index: -1;
+    animation: backgroundPulse 15s infinite alternate; /* Yavaş animasyon */
+}
+
+@keyframes backgroundPulse {
+    from { opacity: 0.7; }
+    to { opacity: 0.9; }
+}
+
+/* Ana Konteyner */
 .container {
-    background-color: #fff;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    max-width: 90%;
+    background: rgba(255, 255, 255, 0.95); /* Yarı saydam beyaz */
+    padding: 50px;
+    border-radius: 25px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3); /* Derin gölge */
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 0.5s ease-out;
 }
 
+/* Başlık */
 h1 {
-    color: #e91e63; /* Canlı pembe başlık */
-    font-size: 2.5em;
-    margin-bottom: 20px;
-    /* Özel bir animasyon: yavaşça belirme */
-    animation: fadeIn 2s ease-out;
+    color: var(--primary-color);
+    font-size: 3em;
+    font-weight: 700;
+    margin-bottom: 25px;
 }
 
-#main-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 15px;
-    margin-bottom: 20px;
-    border: 5px solid #ffccdd; /* Resmin etrafına ince bir çerçeve */
+.animated-icon {
+    margin: 0 10px;
+    color: #ff3366;
+    animation: iconBeat 1s infinite alternate;
 }
 
-.buttons {
-    margin-top: 30px;
+@keyframes iconBeat {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+}
+
+/* Buton Stilleri */
+.question-area {
+    margin-top: 40px;
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 30px;
 }
 
-button {
-    padding: 15px 30px;
+.btn {
+    padding: 15px 35px;
     border: none;
-    border-radius: 30px;
+    border-radius: 50px; /* Hap şekli */
     font-size: 1.2em;
-    cursor: pointer;
-    transition: all 0.3s ease;
     font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Yaylanma efekti */
+}
+
+.btn i {
+    margin-right: 8px;
 }
 
 /* Evet Butonu */
-#yes-button {
-    background-color: #4CAF50; /* Yeşil */
+.btn-success {
+    background-color: #4CAF50;
     color: white;
-    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.4);
+    box-shadow: 0 8px 15px rgba(76, 175, 80, 0.3);
 }
 
-#yes-button:hover {
+.btn-success:hover {
     background-color: #45a049;
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 
-/* Hayır Butonu */
+/* Hayır Butonu (Pozisyonunu JS ile değiştireceğiz) */
 #no-button {
-    background-color: #f44336; /* Kırmızı */
+    background-color: #f44336;
     color: white;
-    box-shadow: 0 4px 10px rgba(244, 67, 54, 0.4);
+    box-shadow: 0 8px 15px rgba(244, 67, 54, 0.3);
+    position: absolute; /* JS ile konumunu yönetmek için MUTLAKA absolute yapılmalı */
+    z-index: 10; /* Evet butonunun üstünde kalması için */
+    transition: all 0.15s linear; /* Hızlı kaçış animasyonu */
 }
 
-/* HAYIR'a basıldığında hareket etmesi için (aşağıdaki JS ile konumunu değiştireceğiz) */
-#no-button {
-    position: relative; /* JavaScript ile konumunu değiştirebilmek için */
-}
-
-/* Ekstra metin stili */
-#counter-text {
-    margin-top: 20px;
-    font-style: italic;
-    color: #e91e63;
+/* Gizli Mesaj */
+#success-message {
+    margin-top: 30px;
+    color: var(--primary-color);
+    font-size: 1.1em;
+    padding: 15px;
+    border: 2px dashed var(--primary-color);
+    border-radius: 10px;
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+/* Modal Stilleri */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 50px rgba(255, 50, 100, 0.9);
+    animation: scaleIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.large-btn {
+    font-size: 1.8em;
+    padding: 20px 60px;
+    margin-top: 20px;
+    background-color: var(--primary-color) !important;
 }
