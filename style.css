@@ -1,103 +1,92 @@
-/* ORİJİNAL KOYU NEON TEMASI */
-:root {
-    --bg-dark: #1e1e1e; /* Koyu Arka Plan */
-    --text-light: #F0F0F0;
-    --neon-pink: #FF6AC1; /* Ana Neon Vurgu */
-    --neon-blue: #00FFFF;
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
-html, body { width: 100vw; height: 100vh; }
 body {
-    background-color: var(--bg-dark); 
-    color: var(--text-light);
-    overflow: hidden; 
+    background-color: #fce4ec; /* Açık pembe arka plan */
+    font-family: 'Georgia', serif; /* Özel bir font seçin */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    text-align: center;
+    color: #4a148c; /* Morumsu koyu yazı rengi */
 }
 
-/* Vertikal Sayfa Geçişleri (En Stabil Yapı) */
-.page {
-    width: 100vw; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-    opacity: 0; visibility: hidden; transition: opacity 0.6s ease-in-out;
-    position: absolute; top: 0; left: 0;
-    background-color: transparent; 
-}
-.page.active { opacity: 1; visibility: visible; }
-
-/* BAŞLIK VE METİN STİLLERİ */
-#page1 h1 {
-    font-weight: 900; font-size: 3rem;
-    color: var(--text-light);
-    margin-bottom: 70px;
-    text-shadow: 0 0 5px var(--neon-pink); /* Neon Etkisi */
+.container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    max-width: 90%;
 }
 
-/* BUTONLAR VE CONTAINER */
-.buttons-container { position: relative; width: 320px; height: 180px; }
+h1 {
+    color: #e91e63; /* Canlı pembe başlık */
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    /* Özel bir animasyon: yavaşça belirme */
+    animation: fadeIn 2s ease-out;
+}
 
-.neon-btn {
-    padding: 15px 40px; font-size: 1.2rem; font-weight: 700;
-    border: 2px solid var(--neon-pink);
-    background-color: transparent;
-    color: var(--text-light);
+#main-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    border: 5px solid #ffccdd; /* Resmin etrafına ince bir çerçeve */
+}
+
+.buttons {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+button {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.2em;
     cursor: pointer;
     transition: all 0.3s ease;
-    border-radius: 4px;
-    position: absolute; 
-    left: 50%; 
-    transform: translateX(-50%); 
-    
-    box-shadow: 0 0 10px var(--neon-pink); /* Neon Kutusu Gölgesi */
-    min-width: 180px; min-height: 55px;
+    font-weight: bold;
 }
 
-.neon-btn:hover {
-    background-color: var(--neon-pink);
-    color: var(--bg-dark);
-    box-shadow: 0 0 20px var(--neon-pink);
-    transform: translateX(-50%) scale(1.05);
+/* Evet Butonu */
+#yes-button {
+    background-color: #4CAF50; /* Yeşil */
+    color: white;
+    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.4);
 }
 
-.yes-btn { top: 0; }
-.no-btn { bottom: 0; border-color: var(--neon-blue); box-shadow: 0 0 10px var(--neon-blue); }
-.no-btn:hover { background-color: var(--neon-blue); color: var(--bg-dark); box-shadow: 0 0 20px var(--neon-blue); }
-
-.error-message {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    color: var(--neon-pink); 
-    font-size: 1.5rem; font-weight: 700; opacity: 0;
-    pointer-events: none; z-index: 6;
-}
-@keyframes fade-in-out {
-    0% { opacity: 0; }
-    50% { opacity: 1; }
-    100% { opacity: 0; }
+#yes-button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
 }
 
-/* İKİNCİ SAYFA STİLLERİ */
-#page2 h2 {
-    font-weight: 700; font-size: 2.2rem;
-    color: var(--neon-blue);
-    margin-bottom: 10px; 
-    text-shadow: 0 0 8px var(--neon-blue);
-}
-.secondary-text { color: var(--text-light); margin-bottom: 40px; font-weight: 400; font-size: 1rem; text-align: center; max-width: 80%; }
-
-.reward-section { display: flex; gap: 40px; flex-wrap: wrap; justify-content: center; margin-top: 30px; }
-.reward-item img {
-    width: 250px; height: 350px; object-fit: cover; border-radius: 6px;
-    border: 3px solid var(--neon-pink); 
-    box-shadow: 0 0 15px rgba(255, 106, 193, 0.5);
+/* Hayır Butonu */
+#no-button {
+    background-color: #f44336; /* Kırmızı */
+    color: white;
+    box-shadow: 0 4px 10px rgba(244, 67, 54, 0.4);
 }
 
-.final-btn {
-    background-color: var(--neon-pink);
-    color: var(--bg-dark);
-    border: none;
-    margin-top: 60px;
-    box-shadow: 0 0 15px var(--neon-pink);
+/* HAYIR'a basıldığında hareket etmesi için (aşağıdaki JS ile konumunu değiştireceğiz) */
+#no-button {
+    position: relative; /* JavaScript ile konumunu değiştirebilmek için */
 }
-.final-btn:hover {
-    background-color: var(--neon-blue);
-    color: var(--bg-dark);
-    box-shadow: 0 0 20px var(--neon-blue);
+
+/* Ekstra metin stili */
+#counter-text {
+    margin-top: 20px;
+    font-style: italic;
+    color: #e91e63;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
