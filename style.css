@@ -1,8 +1,7 @@
-/* Genel Ayarlar ve Font */
 :root {
-    --primary-color: #e91e63; /* Canlı Pembe */
-    --secondary-color: #4a148c; /* Koyu Mor */
-    --bg-color: #f8f0fb; /* Çok Açık Mor */
+    --primary-color: #3f51b5; /* Koyu Mavi (Nehir) */
+    --secondary-color: #00bcd4; /* Açık Mavi (Su) */
+    --bg-color: #e8f4f8; /* Çok Açık Su Rengi */
 }
 
 body {
@@ -13,61 +12,57 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    color: var(--secondary-color);
-    overflow: hidden; /* Kararsız buton için gerekebilir */
+    color: var(--primary-color);
+    overflow: hidden;
 }
 
-/* Arka Plan Efekti */
-.background-overlay {
+/* YENİ: Nehir Arka Plan Efekti */
+.river-background {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(45deg, #ffcce0, #e6b3ff); /* Yumuşak degrade */
-    opacity: 0.7;
+    /* Mavi ve Turkuaz tonlarında akıcı degrade */
+    background: linear-gradient(135deg, #4dd0e1, #80deea, #4dd0e1);
+    background-size: 300% 300%;
     z-index: -1;
-    animation: backgroundPulse 15s infinite alternate; /* Yavaş animasyon */
+    animation: flowBackground 15s ease infinite alternate; /* Akışkan animasyon */
 }
 
-@keyframes backgroundPulse {
-    from { opacity: 0.7; }
-    to { opacity: 0.9; }
+@keyframes flowBackground {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 /* Ana Konteyner */
 .container {
-    background: rgba(255, 255, 255, 0.95); /* Yarı saydam beyaz */
+    background: rgba(255, 255, 255, 0.95);
     padding: 50px;
     border-radius: 25px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3); /* Derin gölge */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); 
     max-width: 600px;
     width: 90%;
     text-align: center;
-    transform: translateY(0);
     transition: transform 0.5s ease-out;
 }
 
-/* Başlık */
 h1 {
     color: var(--primary-color);
     font-size: 3em;
-    font-weight: 700;
-    margin-bottom: 25px;
 }
 
 .animated-icon {
-    margin: 0 10px;
-    color: #ff3366;
-    animation: iconBeat 1s infinite alternate;
+    color: var(--secondary-color);
+    animation: iconRipple 1.5s infinite; /* Nehir dalgalanması */
 }
 
-@keyframes iconBeat {
-    from { transform: scale(1); }
-    to { transform: scale(1.1); }
+@keyframes iconRipple {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
 }
 
-/* Buton Stilleri */
 .question-area {
     margin-top: 40px;
     display: flex;
@@ -78,15 +73,12 @@ h1 {
 .btn {
     padding: 15px 35px;
     border: none;
-    border-radius: 50px; /* Hap şekli */
+    border-radius: 50px;
     font-size: 1.2em;
     font-weight: bold;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Yaylanma efekti */
-}
-
-.btn i {
-    margin-right: 8px;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    z-index: 50; /* Butonların önde olması */
 }
 
 /* Evet Butonu */
@@ -96,66 +88,24 @@ h1 {
     box-shadow: 0 8px 15px rgba(76, 175, 80, 0.3);
 }
 
-.btn-success:hover {
-    background-color: #45a049;
-    transform: scale(1.1);
-}
-
-/* Hayır Butonu (Pozisyonunu JS ile değiştireceğiz) */
+/* Hayır Butonu: Tıklanamaz hale getiriliyor */
 #no-button {
     background-color: #f44336;
     color: white;
     box-shadow: 0 8px 15px rgba(244, 67, 54, 0.3);
-    position: absolute; /* JS ile konumunu yönetmek için MUTLAKA absolute yapılmalı */
-    z-index: 10; /* Evet butonunun üstünde kalması için */
-    transition: all 0.15s linear; /* Hızlı kaçış animasyonu */
+    position: absolute; 
+    z-index: 10;
+    transition: all 0.1s linear; /* Hızlı kaçış */
+    pointer-events: none; /* Tıklanmayı tamamen engeller */
 }
 
-/* Gizli Mesaj */
-#success-message {
-    margin-top: 30px;
-    color: var(--primary-color);
-    font-size: 1.1em;
-    padding: 15px;
-    border: 2px dashed var(--primary-color);
-    border-radius: 10px;
+/* JS ile kontrol edilecek büyüme sınıfı */
+.pulsate {
+    animation: pulsate 0.5s;
 }
 
-.hidden {
-    display: none !important;
-}
-
-/* Modal Stilleri */
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
-}
-
-.modal-content {
-    background: white;
-    padding: 40px;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 10px 50px rgba(255, 50, 100, 0.9);
-    animation: scaleIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-@keyframes scaleIn {
-    from { transform: scale(0.5); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
-
-.large-btn {
-    font-size: 1.8em;
-    padding: 20px 60px;
-    margin-top: 20px;
-    background-color: var(--primary-color) !important;
+@keyframes pulsate {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
 }
