@@ -1,63 +1,123 @@
 document.addEventListener('DOMContentLoaded', () => {
     const yesButton = document.getElementById('yes-button');
     const noButton = document.getElementById('no-button');
-    const container = document.querySelector('.container');
-    const counterText = document.getElementById('counter-text');
+    const questionArea = document.querySelector('.question-area');
+    const successMessage = document.getElementById('success-message');
     const yesCountSpan = document.getElementById('yes-count');
-
+    const finalModal = document.getElementById('final-modal');
+    const finalYesButton = document.getElementById('final-yes-button');
+    
     let yesCount = 0;
-    const initialYesSize = 1.2; // Başlangıç font büyüklüğü
+    let initialYesSize = 1.2; // Başlangıç font boyutu (em)
+    const MAX_COUNT = 15; // Modal'ın açılacağı EVET sayısı
 
-    // HAYIR butonunun çalışmaması ve rastgele hareket etmesi
+    // 1. HAYIR Butonunun Akıllı Kaçışı (Daha karmaşık)
     noButton.addEventListener('mouseover', () => {
-        // Butonu rastgele bir konuma taşı
-        const containerRect = container.getBoundingClientRect();
+        // questionArea (Düğmeleri içeren div) sınırlarını alıyoruz.
+        const areaRect = questionArea.getBoundingClientRect();
         const buttonRect = noButton.getBoundingClientRect();
 
-        // Konum hesaplamaları
-        const newX = Math.random() * (containerRect.width - buttonRect.width - 40) + 20; // 20px iç boşluk
-        const newY = Math.random() * (containerRect.height - buttonRect.height - 40) + 20;
+        // Rastgele X ve Y hesaplamaları
+        // Butonun alanı içinde kalmasını sağlamak için (padding)
+        const maxRangeX = areaRect.width - buttonRect.width;
+        const maxRangeY = areaRect.height - buttonRect.height;
+        
+        // Yeni pozisyon, questionArea'nın sol üstünden (0,0) itibaren hesaplanır.
+        const newX = Math.random() * maxRangeX;
+        const newY = Math.random() * maxRangeY;
 
-        // Butonun bulunduğu container'ın içinde kalmasını sağlamak için
-        noButton.style.position = 'absolute';
-        noButton.style.left = `${newX}px`;
-        noButton.style.top = `${newY}px`;
+        // Butonu "questionArea" içine konumlandırmak için 'transform' kullanıyoruz.
+        // Bu, 'absolute' pozisyonlamaya göre daha performanslıdır.
+        noButton.style.transform = `translate(${newX}px, ${newY}px)`;
     });
 
-    // HAYIR'a basıldığında da EVET'e yönlendirme
+    // 2. HAYIR'a tıklanırsa, EVET'e yönlendirme
     noButton.addEventListener('click', () => {
-        // Hayır'a basılsa bile Evet'e basılmış gibi davranır
-        yesButton.click();
+        yesButton.click(); // 'Hayır' çalışmıyor, her zaman 'Evet' çalışıyor.
     });
 
-    // EVET butonuna basıldığında
+    // 3. EVET Butonuna Basıldığında
     yesButton.addEventListener('click', () => {
+        if (yesCount >= MAX_COUNT) {
+            // Eğer maksimum sayıya ulaşıldıysa modalı aç
+            finalModal.classList.remove('hidden');
+            return; 
+        }
+
         yesCount++;
         
-        // 1. EVET butonunu büyütme
-        yesButton.style.fontSize = `${initialYesSize + yesCount * 0.2}em`; // Her basışta 0.2em büyür
-        yesButton.style.padding = `${15 + yesCount * 3}px ${30 + yesCount * 5}px`; // İç boşluğu da artırarak daha büyük görünür
-
-        // 2. Metni ve sayacı güncelleme
-        yesCountSpan.textContent = yesCount;
-        counterText.classList.remove('hidden'); // Sayacı görünür yap
-
-        // 3. Özel Mesajlar (Çok Özel Dokunuş)
-        if (yesCount === 1) {
-            alert('❤️❤️ İşte bu! Dünyalar benim oldu! ❤️❤️');
-        } else if (yesCount === 5) {
-            alert('5. kez ' + yesCountSpan.textContent + '! Kararını verdin sanırım! 😄');
-        } else if (yesCount === 10) {
-            alert('10!! Bu kadar EVET\'ten sonra kaçışın yok! Seni çok seviyorum! 😘');
-            // Butonun rengini değiştirerek coşku katabiliriz
-            yesButton.style.backgroundColor = '#ff6f00'; // Turuncu
-        }
+        // **Profesyonel Büyütme Efekti:**
+        // Büyüme: Boyut + Padding
+        const newSize = initialYesSize + yesCount * 0.15;
+        yesButton.style.fontSize = `${newSize}em`;
+        yesButton.style.padding = `${15 + yesCount * 2}px ${35 + yesCount * 4}px`;
         
-        // Ses efekti eklemek isterseniz (örneğin bir zil sesi veya kalp atışı sesi)
-        // const audio = new Audio('ses.mp3');
-        // audio.play();
+        // Sayacı ve Mesajı Güncelle
+        yesCountSpan.textContent = yesCount;
+        successMessage.classList.remove('hidden');
+        
+        // **Aşamalı Duygusal Mesajlar (Çok Özel Dokunuş):**
+        if (yesCount === 1) {
+            showNotification("İlk adımı attın! Teşekkür ederim, melek kalplim! ❤️", '#4CAF50');
+        } else if (yesCount === 5) {
+            showNotification("Beş! Kalbim şu an yerinden çıkmak üzere! 🥰", '#ff9800');
+        } else if (yesCount === 10) {
+            showNotification("ON! Artık resmileşti. Seni çok seviyorum! 💖", '#e91e63');
+            // Butona coşku katmak için rengini değiştir
+            yesButton.style.backgroundColor = '#ff6f00'; 
+        }
+
+        // Butonun yaylanma animasyonunu yeniden tetiklemek için bir sınıf ekle/kaldır
+        yesButton.classList.remove('pulsate');
+        void yesButton.offsetWidth; // DOM'u zorla yeniden boya
+        yesButton.classList.add('pulsate');
     });
-    
-    // Sayfa yüklendiğinde HAYIR butonunun başlangıçta rastgele bir yerde olmasını sağlar
+
+    // 4. Modal'daki Son EVET Butonu
+    finalYesButton.addEventListener('click', () => {
+        finalModal.classList.add('hidden');
+        showNotification("Sonsuz mutluluğa 'EVET' dediğin için teşekkürler! Hemen beni ara! 📞", '#00bcd4', true);
+        yesButton.style.display = 'none';
+        noButton.style.display = 'none';
+    });
+
+
+    // Yaratıcı Bildirim Fonksiyonu (Pop-up yerine zarif bir bildirim)
+    function showNotification(message, color, isFinal = false) {
+        const notification = document.createElement('div');
+        notification.textContent = message;
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: ${color};
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 200;
+            font-size: ${isFinal ? '1.5em' : '1.1em'};
+            opacity: 0;
+            transition: opacity 0.5s, transform 0.5s;
+            transform: translateX(100%);
+        `;
+        document.body.appendChild(notification);
+        
+        // Animasyonu başlat
+        setTimeout(() => {
+            notification.style.opacity = '1';
+            notification.style.transform = 'translateX(0)';
+        }, 50);
+
+        // Bildirimi otomatik olarak kapat
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            notification.style.transform = 'translateX(100%)';
+            // Animasyon bitince DOM'dan kaldır
+            notification.addEventListener('transitionend', () => notification.remove());
+        }, isFinal ? 8000 : 4000);
+    }
+
+    // Başlangıçta Hayır butonunu rastgele bir yere konumlandır
     noButton.dispatchEvent(new Event('mouseover')); 
 });
