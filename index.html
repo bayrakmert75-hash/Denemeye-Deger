@@ -3,48 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sana En Özel Soru - Barışalım mı? ❤️</title>
+    <title>Nehir'e Özel Soru - Barışalım mı? ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="background-overlay"></div>
+    <div class="river-background"></div> 
+    
     <main class="container">
         <header class="header">
             <h1>
-                <i class="fas fa-heart-crack animated-icon"></i>
-                Özür Dilerim, (İsim)?
-                <i class="fas fa-heart-crack animated-icon"></i>
+                <i class="fas fa-water animated-icon"></i>
+                Özür Dilerim, Nehir...
+                <i class="fas fa-water animated-icon"></i>
             </h1>
         </header>
 
         <section class="content">
-            <p>Sensiz geçen zaman, eksik kalmış bir hikaye gibi. Hayatımın en güzel bölümünü geri istiyorum.</p>
+            <p>Hayatımın en güzel akışı sendin. Şimdi sensiz, kıyısı olmayan bir nehir gibiyim.</p>
             <p>Lütfen bu durumu düzeltebilir miyiz?</p>
         </section>
 
         <div class="question-area">
-            <button id="no-button" class="btn btn-danger">
-                <i class="fas fa-times"></i> Hayır, Şu An Değil
+            <button id="no-button" class="btn btn-danger" type="button">
+                <i class="fas fa-times"></i> Hayır
             </button>
-            <button id="yes-button" class="btn btn-success">
+            <button id="yes-button" class="btn btn-success" type="button">
                 <i class="fas fa-check"></i> Evet! Barışalım!
             </button>
         </div>
-        
-        <footer id="success-message" class="hidden">
-            <p>Kararın kesinleşti! Bu teklife <span id="yes-count">0</span> kez aşkla 'Evet!' dedin. 🥰</p>
-        </footer>
     </main>
-
-    <div id="final-modal" class="modal hidden">
-        <div class="modal-content">
-            <h2>Bu Son 'Evet' mi?</h2>
-            <p>Tüm kararsızlıklar bitti. Bu, sonsuz barışmamızın başlangıcı olsun mu?</p>
-            <button id="final-yes-button" class="btn btn-success large-btn">KESİNLİKLE EVET!</button>
-        </div>
-    </div>
 
     <script src="script.js"></script>
 </body>
