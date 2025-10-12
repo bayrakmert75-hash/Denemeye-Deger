@@ -1,38 +1,22 @@
+<!DOCTYPE html>
+<html lang="tr">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sana Özel Bir Fırsat</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet" >
-</head>
+    <title>Sana Özel Bir Soru ❤️</title>
+    <link rel="stylesheet" href="style.css"> </head>
 <body>
+    <div class="container">
+        <h1>Özür Dilerim... Barışalım mı?</h1>
+        <img src="kalp.gif" alt="Sevimli bir GIF" id="main-image"> <p>Sensiz geçen her an çok zor. Lütfen bu durumu düzeltelim.</p>
 
-    <div id="page1" class="page active">
-        <header>
-            <h1>BENİMLE TANIŞMAK İSTER MİSİN?</h1>
-        </header>
-        <div class="buttons-container">
-            <button id="yesBtn" class="neon-btn yes-btn">EVET</button>
-            <button id="noBtn" class="neon-btn no-btn">HAYIR</button>
-            <div id="errorMessage" class="error-message">GEÇERSİZ SEÇİM</div>
-        </div>
-    </div>
-
-    <div id="page2" class="page">
-        <h2>DOĞRU SEÇİM! BÜYÜK SÜRPRİZ İÇERİDE</h2>
-        <p class="secondary-text">Bu bir başlangıç. İşte sana ufak bir jest...</p>
-
-        <div class="reward-section">
-            <div class="reward-item">
-                <img src="https://www.trabzonacicek.com/wp-content/uploads/2020/11/IMG_8743-Kopya-scaled.jpg" alt="Lüks Lilyum Buketi">
-            </div>
-
-            <div class="reward-item">
-                <img src="https://static.ticimax.cloud/cdn-cgi/image/width=-,quality=85/60024/uploads/urunresimleri/buyuk/kahve-dunyasi-lavi-cikolata-karisik-do-416619.jpg" alt="Kahve Dünyası Lavi Çikolata">
-            </div>
+        <div class="buttons">
+            <button id="no-button">Hayır</button>
+            <button id="yes-button">Evet!</button>
         </div>
 
-        <button class="neon-btn final-btn" id="finalBtn">BANA MESAJ GÖNDER</button>
+        <p id="counter-text" class="hidden">Bu teklife <span id="yes-count">0</span> kez 'Evet!' dedin bile! 😉</p>
     </div>
 
-    <script src="script.js"></script> 
-</body>
+    <script src="script.js"></script> </body>
+</html>
