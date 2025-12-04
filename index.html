@@ -2,28 +2,313 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sana Bir Sorum Var...</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sana Bir Sorum Var</title>
+    <style>
+        /* --- CORE DESIGN SYSTEM --- */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
+
+        :root {
+            --primary-color: #ff4757;
+            --success-color: #2ed573;
+            --text-color: #2f3542;
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            height: 100vh;
+            overflow: hidden; /* Scroll engellendi */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* HD Nehir Arka Planı - Moody & Mature */
+            background: url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            transition: background 1.5s ease-in-out;
+        }
+
+        /* Çiçek Teması İçin Sınıf */
+        body.flower-theme {
+            background: url('https://images.unsplash.com/photo-1490750967868-58cb75069ed6?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        /* --- GLASSMORPHISM CARD --- */
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            max-width: 90%;
+            width: 500px;
+            position: relative;
+            z-index: 10;
+            transition: all 0.5s ease;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            line-height: 1.2;
+        }
+
+        p.subtitle {
+            color: #f1f2f6;
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        /* --- BUTTONS --- */
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap; /* Butonlar büyüdüğünde sığması için */
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #2ed573 0%, #7bed9f 100%);
+            color: #fff;
+        }
+
+        .btn-no {
+            background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+            color: #fff;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        /* --- SUCCESS MESSAGE AREA --- */
+        #success-message {
+            display: none;
+            color: #fff;
+        }
+        
+        #success-message h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        }
+
+        #success-message p {
+            font-size: 1.3rem;
+            line-height: 1.6;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            80% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+
+        .shake-anim {
+            animation: shake 0.3s ease-in-out;
+        }
+
+        /* --- OVERLAY FOR CONFETTI --- */
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+    </style>
 </head>
 <body>
-    <div id="soru-sayfasi" class="sayfa aktif-sayfa">
-        <h1>Seni Çok Özledim... Barışalım mı?</h1>
-        <div class="buton-kutusu">
-            <button id="evet-butonu" onclick="evetCevabi()">Evet</button>
-            <button id="hayir-butonu" onclick="hayirCevabi()">Hayır</button>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <div class="card" id="main-card">
+        <div id="question-area">
+            <h1>Seni çok özledim...<br>Barışalım mı?</h1>
+            <p class="subtitle">Hayat sensiz akmayan bir nehir gibi...</p>
+            
+            <div class="btn-container">
+                <button class="btn btn-yes" id="yesBtn" onclick="acceptProposal()">Evet</button>
+                <button class="btn btn-no" id="noBtn" onclick="rejectProposal()">Hayır</button>
+            </div>
+        </div>
+
+        <div id="success-message">
+            <h2>Teşekkürler, Doğru Seçim! ❤️</h2>
+            <p>
+                Elimden gelenin en iyisini yapacağım.<br>
+                Beni affettiğin için teşekkür ederim.<br>
+                <b>Seni Seviyorum.</b>
+            </p>
         </div>
     </div>
 
-    <div id="cevap-sayfasi" class="sayfa">
-        <div class="tebrik-kutusu">
-            <h2>🎉 Doğru Karar! 🎉</h2>
-            <p>Teşekkürler, hayatıma tekrar hoş geldin. Bu doğru bir seçimdi ve söz veriyorum, bu sefer **elimden gelenin en iyisini yapacağım.**</p>
-            <p>Seni çok seviyorum. ❤️</p>
-        </div>
-        <div class="cicekler">🌸🌼🌺</div>
-    </div>
+    <script>
+        /* --- LOGIC ENGINE --- */
+        let yesButtonScale = 1;
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const questionArea = document.getElementById('question-area');
+        const successMessage = document.getElementById('success-message');
+        const body = document.body;
 
-    <script src="script.js"></script>
+        // Hayır butonuna basılınca çalışacak fonksiyon
+        function rejectProposal() {
+            // 1. Hayır butonunu salla (Psikolojik direnç efekti)
+            noBtn.classList.add('shake-anim');
+            setTimeout(() => noBtn.classList.remove('shake-anim'), 300);
+
+            // 2. Evet butonunu büyüt (Exponential Growth)
+            yesButtonScale += 0.4; // Büyüme katsayısı
+            yesBtn.style.transform = `scale(${yesButtonScale})`;
+            
+            // Opsiyonel: Evet butonu çok büyüdüğünde margin ayarı yap ki birbirine girmesin
+            yesBtn.style.margin = `${yesButtonScale * 2}px`;
+
+            // 3. Hayır butonunun metnini değiştir (Opsiyonel ama etkili)
+            const phrases = ["Emin misin?", "Gerçekten mi?", "Bir daha düşün!", "Kalbim kırılıyor...", "Lütfen?"];
+            const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+            noBtn.innerText = randomPhrase;
+        }
+
+        // Evet butonuna basılınca çalışacak fonksiyon
+        function acceptProposal() {
+            // 1. Arka planı değiştir
+            body.classList.add('flower-theme');
+
+            // 2. Kartın içeriğini değiştir
+            questionArea.style.display = 'none';
+            successMessage.style.display = 'block';
+            successMessage.style.animation = 'popIn 0.8s ease-out';
+
+            // 3. Konfeti patlat
+            startConfetti();
+        }
+
+        /* --- CONFETTI ENGINE (PARTICLE SYSTEM) --- */
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let confetti = [];
+        const confettiCount = 300;
+        const gravity = 0.5;
+        const terminalVelocity = 5;
+        const drag = 0.075;
+        const colors = [
+        { front: 'red', back: 'darkred' },
+        { front: 'green', back: 'darkgreen' },
+        { front: 'blue', back: 'darkblue' },
+        { front: 'yellow', back: 'darkyellow' },
+        { front: 'orange', back: 'darkorange' },
+        { front: 'pink', back: 'darkpink' },
+        { front: 'purple', back: 'darkpurple' },
+        { front: 'turquoise', back: 'darkturquoise' }];
+
+
+        resizeCanvas = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+
+        window.addEventListener('resize', resizeCanvas);
+
+        initConfetti = () => {
+            for (let i = 0; i < confettiCount; i++) {
+                confetti.push({
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    dimensions: { x: Math.random() * 10, y: Math.random() * 10 },
+                    position: { x: Math.random() * canvas.width, y: canvas.height - 1 },
+                    rotation: Math.random() * 2 * Math.PI,
+                    scale: { x: 1, y: 1 },
+                    velocity: { x: Math.random() * 50 - 25, y: Math.random() * -50 - 10 }
+                });
+            }
+        };
+
+        renderConfetti = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            confetti.forEach((confetto, index) => {
+                let width = (confetto.dimensions.x * confetto.scale.x);
+                let height = (confetto.dimensions.y * confetto.scale.y);
+
+                ctx.translate(confetto.position.x, confetto.position.y);
+                ctx.rotate(confetto.rotation);
+                
+                confetto.velocity.x -= confetto.velocity.x * drag;
+                confetto.velocity.y = Math.min(confetto.velocity.y + gravity, terminalVelocity);
+                confetto.velocity.x += Math.random() > 0.5 ? Math.random() : -Math.random();
+
+                confetto.position.x += confetto.velocity.x;
+                confetto.position.y += confetto.velocity.y;
+
+                if (confetto.position.y >= canvas.height) confetti.splice(index, 1);
+
+                if (confetto.position.x > canvas.width) confetto.position.x = 0;
+                if (confetto.position.x < 0) confetto.position.x = canvas.width;
+
+                confetto.scale.y = Math.cos(confetto.position.y * 0.1);
+                ctx.fillStyle = confetto.scale.y > 0 ? confetto.color.front : confetto.color.back;
+                ctx.fillRect(-width / 2, -height / 2, width, height);
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
+            });
+
+            if (confetti.length > 0) window.requestAnimationFrame(renderConfetti);
+        };
+
+        function startConfetti() {
+            initConfetti();
+            renderConfetti();
+        }
+    </script>
 </body>
 </html>
