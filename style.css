@@ -1,154 +1,174 @@
-/* --- MODERN RESET & VARIABLES --- */
+/* --- MONOKROM LÜKS TEMA VE CSS3 VURGULARI --- */
 :root {
-    --glass-bg: rgba(10, 10, 10, 0.7); /* Daha koyu glass */
-    --glass-border: rgba(255, 255, 255, 0.2);
-    --primary-color: #55efc4;
+    --bg-color: #0d0d0d;         
+    --card-bg: rgba(255, 255, 255, 0.05); /* Şeffaf Kart Arka Planı */
+    --accent-color: #FFD700;     /* ALTIN VURGU Rengi */
+    --text-color: #f0f0f0;       /* Açık Metin Rengi */
+    --border-color: rgba(255, 255, 255, 0.1);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
 
 body {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    /* Fontlar: Cinzel (Başlık), Montserrat (Metin) */
     font-family: 'Montserrat', sans-serif;
-    color: white;
+    color: var(--text-color);
     overflow: hidden;
-    perspective: 1000px; /* 3D derinlik için */
-    transition: background-image 1.5s ease-in-out;
+    perspective: 1000px; /* Parallax için derinlik */
+    
+    /* Başlangıç Arka Planı: Koyu Nehir Görseli */
+    background: url('https://images.unsplash.com/photo-1544280789-9e8a7f055ac2?q=80&w=2500&auto=format&fit=crop&bg=0d0d0d') no-repeat center center fixed;
+    background-size: cover;
+    filter: grayscale(80%) brightness(0.7); /* Siyah beyaz ve koyu tonlama */
+    transition: all 1.5s ease-in-out;
 }
 
-/* Dinamik Video Arka Planı */
+/* Arka Plan Video Stili (Varsa Video Kullanımı) */
 #bg-video {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    z-index: -100;
+    position: fixed; top: 50%; left: 50%; min-width: 100%; min-height: 100%;
+    width: auto; height: auto; z-index: -100;
     transform: translate(-50%, -50%);
-    /* Hafif bir bulanıklık ekleyerek daha sinematik yap */
-    filter: brightness(0.7) blur(1px); 
+    filter: brightness(0.7) blur(1px) grayscale(80%); 
     transition: all 0.5s ease;
 }
 
-/* Çiçekli Tema Video/Görsel */
-body.bloom-mode #bg-video {
-    display: none; /* Video yerine çiçek görseli kullan */
-}
+/* Başarı Ekranı Arka Planı: Çiçekli Tema */
 body.bloom-mode {
-    background: url('https://images.unsplash.com/photo-1522770179533-28952f4a5c43?q=80&w=2000&auto=format&fit=crop') no-repeat center center fixed;
+    background: url('https://images.unsplash.com/photo-1517400508544-bd4a7e937517?q=80&w=2500&auto=format&fit=crop') no-repeat center center fixed;
     background-size: cover;
+    filter: grayscale(0%) brightness(0.9); /* Renkli ve aydınlık */
+}
+body.bloom-mode #bg-video {
+    display: none;
 }
 
 /* --- ANA KART VE PARALLAX AYARLARI --- */
 .main-wrapper {
-    transition: transform 0.1s linear; /* Parallax geçişi için */
-    box-shadow: 0 20px 50px rgba(0,0,0,0.7);
-    border-radius: 24px;
+    transition: transform 0.1s linear;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+    border-radius: 12px;
 }
 
 .glass-container {
-    background: var(--glass-bg);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border: 1px solid var(--glass-border);
-    border-radius: 24px;
-    padding: 40px;
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 50px 40px;
     text-align: center;
     max-width: 90%;
-    width: 500px;
+    width: 480px;
     position: relative;
     z-index: 10;
-    transition: all 0.5s ease;
 }
 
 /* --- TYPOGRAPHY & TEXT --- */
 .main-title {
     font-family: 'Cinzel', serif;
-    font-size: 2.5rem;
-    color: var(--primary-color);
+    font-size: 2.8rem;
+    color: var(--accent-color);
     margin-bottom: 10px;
-    text-shadow: 0 0 10px rgba(0,0,0,0.8);
-    line-height: 1.2;
+    text-shadow: 0 0 10px rgba(255,215,0,0.3);
+    line-height: 1.1;
+    font-weight: 700;
 }
 
 .subtitle {
-    font-size: 1.1rem;
-    color: #bdbdbd;
-    margin-bottom: 30px;
+    font-size: 1.05rem;
+    color: var(--text-color);
+    margin-bottom: 40px;
     font-weight: 300;
 }
 
 .success-title {
     font-family: 'Pinyon Script', cursive;
-    font-size: 4rem;
-    color: #ff9f43; /* Parlak turuncu */
+    font-size: 4.5rem;
+    color: var(--accent-color);
     margin-bottom: 20px;
-    text-shadow: 0 0 15px rgba(255,159,67, 0.8);
+    text-shadow: 0 0 20px rgba(255,215,0,0.6);
 }
 
-.love-text {
-    margin-top: 15px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--primary-color);
-    text-shadow: 0 0 5px rgba(0, 176, 155, 0.5);
-    transition: opacity 0.5s;
+.message-text {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: var(--text-color);
 }
 
 .persuasion-box {
     margin-top: 20px;
     padding: 10px;
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    border-left: 5px solid #ff7979;
+    background: rgba(255, 215, 0, 0.1); 
+    border-left: 5px solid var(--accent-color);
     animation: fadeIn 0.5s;
 }
 
-/* --- BUTTONS --- */
+/* --- BUTONLAR --- */
 .button-group {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
-    min-height: 100px; /* Buton büyümesi için alan */
+    gap: 30px;
+    min-height: 100px;
 }
 
 .btn {
-    padding: 16px 35px;
-    border: none;
-    border-radius: 50px;
-    font-size: 1.05rem;
-    font-weight: 700;
+    padding: 14px 38px;
+    border: 2px solid var(--accent-color);
+    background: transparent;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-    color: #2d3436;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    color: var(--text-color);
     text-transform: uppercase;
-    letter-spacing: 1px;
 }
 
 .btn-primary {
-    background: linear-gradient(45deg, var(--primary-color), #81ecec);
-    animation: heartbeat 2s infinite;
+    color: var(--accent-color);
+    animation: gold-pulse 2s infinite;
+}
+
+.btn-primary:hover {
+    background: var(--accent-color);
+    color: var(--bg-color); 
 }
 
 .btn-secondary {
-    background: linear-gradient(45deg, #ff7675, #fab1a0);
-    color: white;
+    border-color: #a0a0a0;
+    color: #a0a0a0;
 }
 
-/* --- ANIMATIONS & UTILITIES --- */
-.hidden { display: none !important; }
+.btn-secondary:hover {
+    border-color: #fff;
+    color: #fff;
+}
 
-@keyframes heartbeat {
-    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(85, 239, 196, 0.7); }
-    70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(85, 239, 196, 0); }
-    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(85, 239, 196, 0); }
+/* --- YARDIMCI SINIFLAR VE ANİMASYONLAR --- */
+.hidden { 
+    display: none !important; 
+}
+
+#confetti-canvas {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 5;
+}
+
+@keyframes gold-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
 }
 
 @keyframes fadeIn {
