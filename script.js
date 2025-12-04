@@ -18,108 +18,89 @@ document.addEventListener('DOMContentLoaded', () => {
         mainWrapper.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
     });
 
-    // --- HAYIR BUTONU MANTIĞI ---
+    // --- HAYIR BUTONU MANTIĞI (EVET BÜYÜTME) ---
     btnNo.addEventListener('click', () => {
         noClickCount++;
 
         // 1. EVET butonunu büyüt
         yesScale += 0.45;
         btnYes.style.transform = `scale(${yesScale})`;
-        
-        // Animasyon çakışmasını önle
-        btnYes.style.animation = 'none';
+        btnYes.style.animation = 'none'; // Yanıp sönme animasyonu varsa devre dışı bırakılır
 
-        // 2. Gizli Sevgi Sayacını Güncelle ve Göster
+        // 2. Gizli Kararlılık Sayacını Güncelle (isteğe bağlı)
         loveScore.classList.remove('hidden');
         loveScore.textContent = `[Kararlılığım: %${Math.min(99, Math.round(yesScale * 10))}]`;
 
-        // 3. İkna Mesajı Mekanizması
+        // 3. İkna Mesajı ve Metin Değişimi
         if (noClickCount >= 3) {
             persuasionMessage.classList.remove('hidden');
         }
         if (noClickCount >= 7) {
-            // Buton metni son sitem
-            btnNo.innerText = "Yeter Artık! 😩";
+            btnNo.innerText = "Lütfen Kararınızı Gözden Geçirin.";
         } else {
+            // HAYIR butonunun metni değişir
             const phrases = [
-                "Emin misin?", "Bir daha düşün!", "Gerçekten mi?", 
-                "Yapma...", "Kalbim kırılıyor 💔", "Lütfen?", "Bu beni üzüyor"
+                "Kararınızdan Emin misiniz?", 
+                "Lütfen Alternatifi Değerlendirin.", 
+                "Bu Kararımızdan Vazgeçmeliyiz.", 
+                "Bu Durum Sürdürülemez.", 
+                "Bir Çözüme Ulaşmalıyız.",
+                "Kararlılığımı Göz Önünde Bulundurun.",
+                "Mantıklı Bir Değerlendirme Yapın."
             ];
             const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
             btnNo.innerText = randomPhrase;
         }
     });
 
-    // --- EVET BUTONU MANTIĞI ---
+    // --- EVET BUTONU MANTIĞI (İkinci Sayfaya Geçiş) ---
     btnYes.addEventListener('click', () => {
-        // 1. Arka planı değiştir
+        // 1. Görsel Geçişler (Çiçekli Arka Plan)
         body.classList.add('bloom-mode');
-        document.getElementById('bg-video').pause(); // Video oynatmayı durdur
-
-        // 2. Ekranları değiştir
+        const video = document.getElementById('bg-video');
+        if (video) video.pause(); 
+        
+        // 2. Ekran Değişimi
         questionScreen.style.display = 'none';
         successScreen.classList.remove('hidden');
         
-        // Kartı sallama animasyonunu ekle
         mainWrapper.animate([
-            { transform: 'scale(1.1)', boxShadow: '0 0 80px rgba(255, 159, 67, 1)' }
+            { transform: 'scale(1.1)', boxShadow: '0 0 80px rgba(255, 215, 0, 1)' } 
         ], { duration: 1000, fill: 'forwards' });
 
         // 3. Konfetileri Başlat
         startConfetti();
     });
 
-    // --- KONFETİ MOTORU (Önceki projeden daha gelişmiş) ---
+    // --- KONFETİ MOTORU (Aynı kalır) ---
     const canvas = document.getElementById('confetti-canvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
     let animationId;
 
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
+    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resizeCanvas); resizeCanvas();
     
-    // Partikülleri oluşturma mantığı
     function createParticles() {
-        const colors = ['#ff7979', '#f9ca24', '#5352ed', '#1dd1a1', '#ff9ff3'];
+        const colors = ['#FFD700', '#FFFFFF', '#1a1a1a', '#f0e68c', '#a0a0a0']; 
         for (let i = 0; i < 350; i++) {
             particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height - canvas.height, 
-                size: Math.random() * 8 + 4,
-                speedY: Math.random() * 3 + 3, // Daha hızlı düşüş
-                speedX: Math.random() * 2 - 1,
-                color: colors[Math.floor(Math.random() * colors.length)],
-                rotation: Math.random() * 360
+                x: Math.random() * canvas.width, y: Math.random() * canvas.height - canvas.height, 
+                size: Math.random() * 8 + 4, speedY: Math.random() * 3 + 3, speedX: Math.random() * 2 - 1,
+                color: colors[Math.floor(Math.random() * colors.length)], rotation: Math.random() * 360
             });
         }
     }
 
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        particles.forEach((p, index) => {
-            p.y += p.speedY;
-            p.x += p.speedX;
-            p.rotation += 4; // Daha hızlı dönme
-
-            ctx.save();
-            ctx.translate(p.x, p.y);
-            ctx.rotate(p.rotation * Math.PI / 180);
-            ctx.fillStyle = p.color;
-            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+        particles.forEach((p) => {
+            p.y += p.speedY; p.x += p.speedX; p.rotation += 4;
+            ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rotation * Math.PI / 180);
+            ctx.fillStyle = p.color; ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
             ctx.restore();
-
-            if (p.y > canvas.height) {
-                // Konfetiyi ekranın yukarısına rastgele bir yere ışınla
-                p.y = -10;
-                p.x = Math.random() * canvas.width;
-            }
+            if (p.y > canvas.height) { p.y = -10; p.x = Math.random() * canvas.width; }
         });
-
         animationId = requestAnimationFrame(animate);
     }
 
