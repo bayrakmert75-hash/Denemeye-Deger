@@ -3,37 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nehir'e Özel Soru - Barışalım mı? ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>Sana Bir Sorum Var...</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="river-background"></div> 
-    
-    <main class="container">
-        <header class="header">
-            <h1>
-                <i class="fas fa-water animated-icon"></i>
-                Özür Dilerim, Nehir...
-                <i class="fas fa-water animated-icon"></i>
-            </h1>
-        </header>
-
-        <section class="content">
-            <p>Hayatımın en güzel akışı sendin. Şimdi sensiz, kıyısı olmayan bir nehir gibiyim.</p>
-            <p>Lütfen bu durumu düzeltebilir miyiz?</p>
-        </section>
-
-        <div class="question-area">
-            <button id="no-button" class="btn btn-danger" type="button">
-                <i class="fas fa-times"></i> Hayır
-            </button>
-            <button id="yes-button" class="btn btn-success" type="button">
-                <i class="fas fa-check"></i> Evet! Barışalım!
-            </button>
+    <div id="soru-sayfasi" class="sayfa aktif-sayfa">
+        <h1>Seni Çok Özledim... Barışalım mı?</h1>
+        <div class="buton-kutusu">
+            <button id="evet-butonu" onclick="evetCevabi()">Evet</button>
+            <button id="hayir-butonu" onclick="hayirCevabi()">Hayır</button>
         </div>
-    </main>
+    </div>
+
+    <div id="cevap-sayfasi" class="sayfa">
+        <div class="tebrik-kutusu">
+            <h2>🎉 Doğru Karar! 🎉</h2>
+            <p>Teşekkürler, hayatıma tekrar hoş geldin. Bu doğru bir seçimdi ve söz veriyorum, bu sefer **elimden gelenin en iyisini yapacağım.**</p>
+            <p>Seni çok seviyorum. ❤️</p>
+        </div>
+        <div class="cicekler">🌸🌼🌺</div>
+    </div>
 
     <script src="script.js"></script>
 </body>
