@@ -1,111 +1,95 @@
-:root {
-    --primary-color: #3f51b5; /* Koyu Mavi (Nehir) */
-    --secondary-color: #00bcd4; /* Açık Mavi (Su) */
-    --bg-color: #e8f4f8; /* Çok Açık Su Rengi */
-}
-
+/* Genel Stil */
 body {
-    font-family: 'Cormorant Garamond', serif;
-    background-color: var(--bg-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    color: var(--primary-color);
-    overflow: hidden;
+    /* Nehir temalı arka plan */
+    background: url('https://images.unsplash.com/photo-1544376378-574d32e957cb?fit=crop&w=1920&q=80') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff; /* Metin rengi beyaz */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* Metni belirginleştirme */
 }
 
-/* YENİ: Nehir Arka Plan Efekti */
-.river-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Mavi ve Turkuaz tonlarında akıcı degrade */
-    background: linear-gradient(135deg, #4dd0e1, #80deea, #4dd0e1);
-    background-size: 300% 300%;
-    z-index: -1;
-    animation: flowBackground 15s ease infinite alternate; /* Akışkan animasyon */
-}
-
-@keyframes flowBackground {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* Ana Konteyner */
-.container {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 50px;
-    border-radius: 25px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); 
-    max-width: 600px;
-    width: 90%;
+/* Sayfa Geçişleri */
+.sayfa {
+    background-color: rgba(0, 0, 0, 0.6); /* Yarı saydam kutu */
+    padding: 40px;
+    border-radius: 15px;
     text-align: center;
-    transition: transform 0.5s ease-out;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    transition: opacity 0.5s ease-in-out;
+    width: 90%;
+    max-width: 500px;
 }
 
+.sayfa:not(.aktif-sayfa) {
+    display: none; /* Aktif olmayan sayfayı gizle */
+    opacity: 0;
+}
+
+/* Başlık */
 h1 {
-    color: var(--primary-color);
-    font-size: 3em;
+    color: #FFD700; /* Altın sarısı */
+    margin-bottom: 30px;
 }
 
-.animated-icon {
-    color: var(--secondary-color);
-    animation: iconRipple 1.5s infinite; /* Nehir dalgalanması */
-}
-
-@keyframes iconRipple {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.2); opacity: 0.7; }
-}
-
-.question-area {
-    margin-top: 40px;
+/* Butonlar */
+.buton-kutusu {
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: 20px;
+    margin-top: 40px;
 }
 
-.btn {
-    padding: 15px 35px;
+button {
+    padding: 15px 30px;
     border: none;
     border-radius: 50px;
     font-size: 1.2em;
-    font-weight: bold;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    z-index: 50; /* Butonların önde olması */
+    transition: all 0.2s ease-in-out;
 }
 
-/* Evet Butonu */
-.btn-success {
-    background-color: #4CAF50;
+#evet-butonu {
+    background-color: #4CAF50; /* Yeşil */
     color: white;
-    box-shadow: 0 8px 15px rgba(76, 175, 80, 0.3);
+    /* Başlangıç büyüklüğü JavaScript ile ayarlanacak */
 }
 
-/* Hayır Butonu: Tıklanamaz hale getiriliyor */
-#no-button {
-    background-color: #f44336;
+#hayir-butonu {
+    background-color: #F44336; /* Kırmızı */
     color: white;
-    box-shadow: 0 8px 15px rgba(244, 67, 54, 0.3);
-    position: absolute; 
-    z-index: 10;
-    transition: all 0.1s linear; /* Hızlı kaçış */
-    pointer-events: none; /* Tıklanmayı tamamen engeller */
 }
 
-/* JS ile kontrol edilecek büyüme sınıfı */
-.pulsate {
-    animation: pulsate 0.5s;
+#hayir-butonu:active {
+    /* Butona basılınca küçülme efekti */
+    transform: scale(0.95);
 }
 
-@keyframes pulsate {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+/* Tebrik Sayfası Stili */
+#cevap-sayfasi {
+    background-color: rgba(255, 255, 255, 0.9); /* Açık renkli kutu */
+    color: #333;
+    /* Çiçekli bir arka plan resmi kullanabilirsiniz */
+    /* VEYA: */
+    /* background: radial-gradient(circle, #f0fff0, #e0f0e0); */
+}
+
+.tebrik-kutusu h2 {
+    color: #FF69B4; /* Pembe */
+    font-size: 2.5em;
+}
+
+.cicekler {
+    font-size: 4em;
+    margin-top: 20px;
+    animation: cicekSalla 1.5s infinite alternate; /* Animasyon ekleme */
+}
+
+@keyframes cicekSalla {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(5deg); }
 }
